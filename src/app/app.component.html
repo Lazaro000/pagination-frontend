@@ -157,6 +157,7 @@
                 let i = index
               "
               class="page-item pointer"
+              [ngClass]="i == (currentPage | async) ? 'active' : ''"
             >
               <a (click)="goToPage('', i)" class="page-link">{{ i + 1 }} </a>
             </li>
