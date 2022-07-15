@@ -83,6 +83,73 @@
 
         <ng-container *ngSwitchCase="'APP_LOADED'">
           <h3>User List</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Status</th>
+                <th scope="col">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let user of state.appData?.data?.page?.content;
+                  let i = index
+                "
+              >
+                <th scope="row">{{ user.id }}</th>
+                <td>
+                  <img
+                    [src]="user.imageUrl"
+                    width="42"
+                    height="42"
+                    class="rounded-circle"
+                    [alt]="user.name + '\'s photo'"
+                  />
+                </td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="[
+                      user.status === 'ACTIVE' ? ' bg-success' : '',
+                      user.status === 'PENDING' ? ' bg-primary' : '',
+                      user.status === 'INACTIVE' ? ' bg-info' : '',
+                      user.status === 'BANNED' ? ' bg-danger' : ''
+                    ]"
+                  >
+                    {{ user.status }}
+                  </span>
+                </td>
+                <td>{{ user.address }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page item">
+              <a class="page-link" href="#" aria-label="Previous">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">Next &raquo;</span></a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </ng-container>
