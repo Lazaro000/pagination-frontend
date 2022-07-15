@@ -98,7 +98,7 @@
             <tbody>
               <tr
                 *ngFor="
-                  let user of state.appData?.data?.page?.content;
+                  let user of state.appData.data.page.content;
                   let i = index
                 "
               >
@@ -144,18 +144,18 @@
             <li
               *ngFor="
                 let pageNumber of [].constructor(
-                  state.appData?.data?.page?.totalPages
+                  state.appData.data.page.totalPages
                 );
                 let i = index
               "
               class="page-item"
             >
-              <a class="page-link">{{ i + 1 }}</a>
+              <a (click)="goToPage('', i)" class="page-link">{{ i + 1 }} </a>
             </li>
             <li class="page item">
               <a class="page-link" aria-label="Next">
-                <span aria-hidden="true">Next &raquo;</span></a
-              >
+                <span aria-hidden="true">Next &raquo;</span>
+              </a>
             </li>
           </ul>
         </nav>
