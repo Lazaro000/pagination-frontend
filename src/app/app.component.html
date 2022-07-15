@@ -136,8 +136,16 @@
 
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-end">
-            <li class="page item">
-              <a class="page-link" href="#" aria-label="Previous">
+            <li
+              class="page-item pointer"
+              [ngClass]="0 == (currentPage | async) ? 'disabled' : ''"
+            >
+              <a
+                (click)="goToNextOrPreviousPage('backward', '')"
+                class="page-link"
+                href="#"
+                aria-label="Previous"
+              >
                 &laquo; Previous
               </a>
             </li>
@@ -148,12 +156,23 @@
                 );
                 let i = index
               "
-              class="page-item"
+              class="page-item pointer"
             >
               <a (click)="goToPage('', i)" class="page-link">{{ i + 1 }} </a>
             </li>
-            <li class="page item">
-              <a class="page-link" aria-label="Next">
+            <li
+              class="page-item pointer"
+              [ngClass]="
+                state.appData.data.page.totalPages - 1 == (currentPage | async)
+                  ? 'disabled'
+                  : ''
+              "
+            >
+              <a
+                (click)="goToNextOrPreviousPage('forward', '')"
+                class="page-link"
+                aria-label="Next"
+              >
                 <span aria-hidden="true">Next &raquo;</span>
               </a>
             </li>

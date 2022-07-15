@@ -27,6 +27,8 @@ export class AppComponent implements OnInit {
     | undefined = undefined;
 
   responseSubject = new BehaviorSubject<ApiResponse<Page>>(null);
+  private currentPageSubject = new BehaviorSubject<number>(0);
+  currentPage = this.currentPageSubject.asObservable();
 
   title = 'pagination-frontend';
 
@@ -36,6 +38,7 @@ export class AppComponent implements OnInit {
     this.usersState = this.userService.getUsers().pipe(
       map((response: ApiResponse<Page>) => {
         this.responseSubject.next(response);
+        this.currentPageSubject.next(response.data.page.number);
 
         console.log(response);
 
@@ -55,6 +58,7 @@ export class AppComponent implements OnInit {
     this.usersState = this.userService.getUsers(name, pageNumber).pipe(
       map((response: ApiResponse<Page>) => {
         this.responseSubject.next(response);
+        this.currentPageSubject.next(pageNumber);
 
         console.log(response);
 
@@ -70,6 +74,15 @@ export class AppComponent implements OnInit {
       catchError((error: HttpErrorResponse) =>
         of({ appState: 'APP_ERROR', error })
       )
+    );
+  }
+
+  goToNextOrPreviousPage(direction?: string, name?: string): void {
+    this.goToPage(
+      name,
+      direction === 'forward'
+        ? this.currentPageSubject.value + 1
+        : this.currentPageSubject.value - 1
     );
   }
 }
