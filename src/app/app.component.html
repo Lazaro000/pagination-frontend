@@ -137,13 +137,23 @@
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-end">
             <li class="page item">
-              <a class="page-link" href="#" aria-label="Previous">Previous</a>
+              <a class="page-link" href="#" aria-label="Previous">
+                &laquo; Previous
+              </a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li
+              *ngFor="
+                let pageNumber of [].constructor(
+                  state.appData?.data?.page?.totalPages
+                );
+                let i = index
+              "
+              class="page-item"
+            >
+              <a class="page-link">{{ i + 1 }}</a>
+            </li>
             <li class="page item">
-              <a class="page-link" href="#" aria-label="Next">
+              <a class="page-link" aria-label="Next">
                 <span aria-hidden="true">Next &raquo;</span></a
               >
             </li>
